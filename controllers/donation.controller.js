@@ -10,6 +10,7 @@ let snap = new midtransClient.Snap({
 
 const createDonation = async (req, res) => {
     try {
+        console.log(req.body)
         const { donate_id, gross_amount, name, phone, email, pesan } = req.body
 
         let parameter = {
@@ -94,7 +95,9 @@ const getTotalByPaymentType = async (req, res) => {
 
 const getMessage = async (req, res) => {
     try {
-        const msg = await Donation.findById(req._id)
+        const msg = await Donation.find({
+            transactionStatus: { $in: ["settlement", "capture"] }
+        }).sort({ createdAt: -1 })
 
         return OK(res, 200, msg, "Getting message success")
     } catch (error) {

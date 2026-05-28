@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
-const donationSchema = mongoose.Schema({
+const donationSchema = new mongoose.Schema({
     donateId: { type: String, required: true, unique: true },
     name: { type: String, default: "Orang Baik" },
-    phone: { type: Number },
+    phone: { type: String },
     email: { type: String },
     pesan: { type: String },
     grossAmount: { type: Number, required: true },
